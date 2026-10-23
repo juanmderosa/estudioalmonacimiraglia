@@ -1,0 +1,134 @@
+---
+import Arrow from "./Arrow.astro";
+import Logo from "./Logo.astro";
+import { business } from "../data/business";
+---
+
+<section
+  class="hero shell"
+  aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="eyebrow">Compromiso · Cercanía · Justicia</p><h1 id="hero-title">
+      Tus derechos,<br />nuestra <em>prioridad.</em>
+    </h1><p class="lead">
+      Te escuchamos, te asesoramos y te acompañamos en cada paso. Una defensa
+      comprometida con tus derechos.
+    </p><a
+      class="button"
+      target="_blank"
+      rel="noopener noreferrer"
+      href={business.whatsappUrl}
+      >Hablemos de tu consulta <Arrow /><span class="sr-only">
+        (se abre en una nueva pestaña)</span
+      ></a
+    ><a
+      class="secondary-link"
+      href="#servicios"
+      >Conocé nuestras áreas de práctica <span aria-hidden="true">↓</span></a
+    >
+  </div>
+  <div class="seal">
+    <Logo
+      variant="hero"
+      eager
+    /><p>Una defensa firme.<br />Un trato cercano.</p><span
+      class="seal-line"
+      aria-hidden="true"
+    ></span>
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    align-items: center;
+    gap: 65px;
+    padding-block: 88px;
+  }
+  .hero h1 {
+    font-size: clamp(48px, 5.8vw, 76px);
+    line-height: 1.06;
+    letter-spacing: -2.8px;
+    margin-bottom: 28px;
+  }
+  .hero h1 em {
+    color: var(--color-brand);
+    font-weight: 400;
+  }
+  .lead {
+    max-width: 485px;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+  .secondary-link {
+    display: block;
+    width: fit-content;
+    margin-top: 20px;
+    font-size: 14px;
+    min-height: 44px;
+    padding-block: 10px;
+    color: var(--color-brand);
+  }
+  .seal {
+    min-height: 475px;
+    border-radius: 240px 240px 0 0;
+    background: var(--color-salmon);
+    color: #0d2b22;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 45px 30px;
+  }
+  .seal p {
+    font: 32px/1.35 var(--font-serif);
+    text-align: center;
+  }
+  .seal-line {
+    width: 45px;
+    height: 1px;
+    background: #0d2b22;
+    margin-top: 25px;
+  }
+  @media (max-width: 63.99rem) {
+    .hero {
+      gap: 35px;
+    }
+    .hero h1 {
+      font-size: 60px;
+    }
+    .seal {
+      min-height: 400px;
+    }
+  }
+  @media (max-width: 47.99rem) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding-block: 48px;
+      gap: 38px;
+    }
+    .hero h1 {
+      font-size: clamp(44px, 10vw, 64px);
+      letter-spacing: -1.5px;
+    }
+    .lead {
+      font-size: 16px;
+    }
+    .seal {
+      min-height: 330px;
+      max-width: 430px;
+      width: 100%;
+      margin: auto;
+      border-radius: 220px 220px 0 0;
+    }
+    .seal p {
+      font-size: 28px;
+    }
+  }
+  @media (max-width: 359px) {
+    .hero h1 {
+      font-size: 44px;
+    }
+  }
+</style>

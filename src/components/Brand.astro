@@ -1,0 +1,53 @@
+---
+import Logo from "./Logo.astro";
+interface Props {
+  name: string;
+  category: string;
+  eager?: boolean;
+}
+const { name, category, eager = false } = Astro.props;
+---
+
+<a
+  class="brand"
+  href="#inicio"
+  ><Logo eager={eager} /><span
+    >{name}<span class="brand-caption">{category}</span></span
+  ></a
+>
+<style>
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font: 24px/1.2 var(--font-serif);
+    text-decoration: none;
+    min-height: 48px;
+  }
+  .brand-caption {
+    display: block;
+    font: 14px/1.5 var(--font-sans);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  @media (max-width: 63.99rem) {
+    .brand {
+      font-size: 21px;
+    }
+  }
+  @media (max-width: 47.99rem) {
+    .brand {
+      font-size: 19px;
+      gap: 10px;
+    }
+    .brand-caption {
+      letter-spacing: 1px;
+    }
+  }
+  @media (max-width: 359px) {
+    .brand {
+      font-size: 17px;
+    }
+  }
+</style>

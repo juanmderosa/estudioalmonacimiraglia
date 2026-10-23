@@ -1,0 +1,75 @@
+---
+import { business } from "../data/business";
+const { services } = business;
+---
+
+<section
+  class="services shell section-space"
+  id="servicios"
+  aria-labelledby="services-title">
+  <div class="section-heading">
+    <h2 id="services-title">Áreas de práctica</h2><p class="eyebrow">
+      Asesoramiento y representación
+    </p>
+  </div>
+  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      services.map((service, index) => (
+        <article class="service">
+          <>
+            <span
+              class="service-number"
+              aria-hidden="true">
+              0{index + 1} /
+            </span>
+            <h3>{service.name}</h3>
+            <p>{service.description}</p>
+          </>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .services {
+    border-top: 1px solid #c5cfc3;
+  }
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 42px;
+  }
+  .section-heading .eyebrow {
+    margin: 0;
+  }
+  .service {
+    border-top: 1px solid #84988b;
+    padding-top: 20px;
+  }
+  .service-number {
+    font-size: 14px;
+    color: #52695c;
+  }
+  .service h3 {
+    font-size: 27px;
+    line-height: 1.2;
+    margin-block: 16px;
+  }
+  .service p {
+    font-size: 16px;
+  }
+  @media (max-width: 63.99rem) {
+    .section-heading {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 47.99rem) {
+    .section-heading {
+      margin-bottom: 30px;
+    }
+  }
+</style>

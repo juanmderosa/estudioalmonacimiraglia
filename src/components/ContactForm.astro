@@ -1,0 +1,211 @@
+---
+import { business } from '../data/business';
+---
+<form
+  id="consulta"
+  action={`https://wa.me/${business.whatsappNumber}`}
+  method="get">
+  <p class="form-intro">
+    Los campos con <span aria-hidden="true">*</span><span class="sr-only"
+      >asterisco</span
+    > son obligatorios.
+  </p>
+  <div
+    id="form-errors"
+    class="error-summary"
+    role="alert"
+    hidden>
+  </div>
+  <div class="field">
+    <label for="nombre">Nombre y apellido *</label><input
+      id="nombre"
+      name="nombre"
+      autocomplete="name"
+      required
+      maxlength="120"
+      aria-describedby="nombre-error"
+    /><span
+      class="field-error"
+      id="nombre-error"
+    ></span>
+  </div>
+  <div class="field">
+    <label for="telefono">Teléfono <span>(opcional)</span></label><input
+      id="telefono"
+      name="telefono"
+      type="tel"
+      autocomplete="tel"
+      maxlength="50"
+    />
+  </div>
+  <div class="field">
+    <label for="area">Área de consulta *</label><select
+      id="area"
+      name="area"
+      required
+      aria-describedby="area-error"
+      ><option value="">Seleccioná una opción</option>
+      {business.services.map(service => <option>{service.name}</option>)}</select
+    ><span
+      class="field-error"
+      id="area-error"
+    ></span>
+  </div>
+  <div class="field">
+    <label for="mensaje">Tu consulta *</label><textarea
+      id="mensaje"
+      name="mensaje"
+      rows="4"
+      required
+      maxlength="2000"
+      aria-describedby="mensaje-help mensaje-error"
+    ></textarea><span
+      id="mensaje-help"
+      class="helper"
+      >Contanos brevemente en qué podemos ayudarte.</span
+    ><span
+      class="field-error"
+      id="mensaje-error"
+    ></span>
+  </div>
+  <button
+    class="button"
+    type="submit"
+    hidden
+    >Continuar en WhatsApp <span aria-hidden="true">↗</span></button
+  >
+  <p class="helper form-note">
+    Se abrirá WhatsApp en una nueva pestaña con tu mensaje preparado. Revisalo y
+    confirmá el envío allí.
+  </p>
+  <noscript
+    ><p>
+      Para preparar tu mensaje, activá JavaScript o <a
+        href={`https://wa.me/${business.whatsappNumber}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        >contactanos directamente por WhatsApp (se abre en una nueva pestaña)</a
+      >.
+    </p></noscript
+  >
+</form>
+<script>
+  import { buildWhatsAppUrl } from "../lib/whatsapp";
+  const form = document.querySelector<HTMLFormElement>("#consulta")!;
+  form.querySelector<HTMLButtonElement>('button[type="submit"]')!.hidden =
+    false;
+  form.noValidate = true;
+  const fields = ["nombre", "area", "mensaje"] as const;
+  const messages = {
+    nombre: "Ingresá tu nombre y apellido.",
+    area: "Seleccioná el área de tu consulta.",
+    mensaje: "Escribí un breve mensaje sobre tu consulta.",
+  };
+  const summary = document.querySelector<HTMLElement>("#form-errors")!;
+  function validate(id: (typeof fields)[number]) {
+    const field = form.elements.namedItem(id) as
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+    const valid = field.value.trim().length > 0;
+    field.setAttribute("aria-invalid", String(!valid));
+    document.getElementById(`${id}-error`)!.textContent = valid
+      ? ""
+      : messages[id];
+    return valid;
+  }
+  fields.forEach((id) => {
+    const field = form.elements.namedItem(id) as HTMLElement;
+    field.addEventListener("input", () => {
+      if ((field as HTMLElement).getAttribute("aria-invalid") === "true")
+        validate(id);
+    });
+  });
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const invalid = fields.filter((id) => !validate(id));
+    if (invalid.length) {
+      summary.hidden = false;
+      summary.textContent = `Revisá ${invalid.length === 1 ? "el campo indicado" : "los campos indicados"} para continuar.`;
+      (form.elements.namedItem(invalid[0]) as HTMLElement).focus();
+      return;
+    }
+    summary.hidden = true;
+    const data = new FormData(form);
+    const value = (key: string) => String(data.get(key) || "").trim();
+    window.open(
+      buildWhatsAppUrl({
+        name: value("nombre"),
+        phone: value("telefono"),
+        area: value("area"),
+        message: value("mensaje"),
+      }),
+      "_blank",
+      "noopener,noreferrer",
+    );
+  });
+</script>
+
+<style>
+.form-intro {
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+.field {
+  margin-bottom: 22px;
+}
+.field label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.field label span,
+.helper {
+  color: #52695c;
+}
+.field input,
+.field select,
+.field textarea {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  background: #fffdf8;
+  color: var(--color-ink);
+  border: 1px solid #587267;
+  border-radius: 0;
+  padding: 12px;
+  font-size: 16px;
+}
+.field textarea {
+  resize: vertical;
+}
+.helper {
+  display: block;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+.form-note {
+  max-width: 390px;
+  margin-top: 15px;
+}
+form .button {
+  margin-top: 0;
+}
+.field-error {
+  display: block;
+  color: #8b221c;
+  font-size: 14px;
+  margin-top: 6px;
+}
+.field-error:empty {
+  display: none;
+}
+[aria-invalid="true"] {
+  border: 2px solid #8b221c !important;
+}
+.error-summary {
+  border-left: 4px solid #8b221c;
+  color: #8b221c;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+}
+</style>

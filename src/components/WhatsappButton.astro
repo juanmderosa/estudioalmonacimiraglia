@@ -1,0 +1,55 @@
+---
+import { business } from "../data/business";
+---
+
+<aside
+  class="whatsapp-dock"
+  aria-label="Consulta rápida">
+  <a
+    href={business.whatsappUrl}
+    class="whatsapp-button"
+    target="_blank"
+    rel="noopener noreferrer"
+    ><span aria-hidden="true">↗</span> WhatsApp<span class="sr-only"
+      >: consultar al estudio (se abre en una nueva pestaña)</span
+    ></a
+  >
+</aside>
+
+<style>
+  .whatsapp-button:hover {
+    background: #005c43;
+  }
+  .whatsapp-dock {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 12px max(24px);
+  }
+  .whatsapp-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 10px 23px;
+    border-radius: 30px;
+    background: var(--color-ink);
+    color: white;
+    text-decoration: none;
+    line-height: 1.5;
+  }
+  .whatsapp-button:focus-visible {
+    outline-color: var(--color-ink);
+  }
+  @media (max-width: 47.99rem) {
+    .whatsapp-dock {
+      padding-inline: 20px;
+    }
+  }
+</style>

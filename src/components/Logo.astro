@@ -1,0 +1,66 @@
+---
+import { Picture } from "astro:assets";
+import logo from "../assets/logo.png";
+interface Props {
+  variant?: "brand" | "hero";
+  eager?: boolean;
+}
+const { variant = "brand", eager = false } = Astro.props;
+const hero = variant === "hero";
+---
+
+<span class:list={["logo", { "logo-hero": hero }]}>
+  <Picture
+    src={logo}
+    formats={["avif", "webp"]}
+    fallbackFormat="png"
+    width={hero ? 190 : 56}
+    height={hero ? 190 : 56}
+    widths={hero ? [125, 155, 190, 250, 310, 380] : [38, 44, 56, 76, 88, 112]}
+    sizes={hero
+      ? "(max-width: 767px) 125px, (max-width: 1023px) 155px, 190px"
+      : "(max-width: 359px) 38px, (max-width: 767px) 44px, 56px"}
+    alt=""
+    loading={eager ? "eager" : "lazy"}
+    fetchpriority={hero ? "high" : "auto"}
+  />
+</span>
+<style>
+  .logo {
+    display: block;
+    flex-shrink: 0;
+    width: 56px;
+  }
+  .logo :global(picture) {
+    display: block;
+  }
+  .logo :global(img) {
+    display: block;
+    border-radius: 50%;
+    width: 100%;
+    height: auto;
+  }
+  .logo-hero {
+    width: 190px;
+    margin-bottom: 35px;
+  }
+  @media (max-width: 63.99rem) {
+    .logo-hero {
+      width: 155px;
+    }
+  }
+  @media (max-width: 47.99rem) {
+    .logo {
+      width: 44px;
+    }
+    .logo-hero {
+      width: 125px;
+      margin-bottom: 22px;
+    }
+  }
+  @media (max-width: 359px) {
+    .logo:not(.logo-hero) {
+      width: 38px;
+    }
+  }
+</style>

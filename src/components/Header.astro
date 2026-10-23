@@ -1,0 +1,152 @@
+---
+import Brand from "./Brand.astro";
+import { business } from "../data/business";
+---
+
+<a
+  class="skip-link"
+  href="#contenido"
+  >Saltar al contenido</a
+>
+<header class="site-header shell">
+  <Brand
+    name={business.name}
+    category={business.category}
+    eager
+  />
+  <button
+    class="menu-toggle"
+    type="button"
+    aria-controls="navegacion"
+    aria-expanded="false"
+    aria-label="Menú principal"
+    hidden>
+    <span aria-hidden="true">☰</span></button
+  >
+  <nav
+    id="navegacion"
+    aria-label="Navegación principal">
+    <a href="#servicios">Servicios</a><a href="#estudio">El estudio</a><a
+      href="#contacto">Contacto <span aria-hidden="true">↗</span></a
+    >
+  </nav>
+</header>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle")!;
+  const nav = document.querySelector<HTMLElement>("#navegacion")!;
+  const mobile = window.matchMedia("(max-width: 47.99rem)");
+  const close = (restore = false) => {
+    toggle.setAttribute("aria-expanded", "false");
+    nav.hidden = mobile.matches;
+    if (restore) toggle.focus();
+  };
+  const sync = () => {
+    toggle.hidden = !mobile.matches;
+    close();
+  };
+  sync();
+  mobile.addEventListener("change", sync);
+  toggle.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!open));
+    nav.hidden = open;
+  });
+  nav.addEventListener("click", (event) => {
+    if ((event.target as HTMLElement).closest("a") && mobile.matches)
+      close(true);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      toggle.getAttribute("aria-expanded") === "true"
+    )
+      close(true);
+  });
+</script>
+
+<style>
+  .skip-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 50;
+    padding: 12px 20px;
+    background: var(--color-ink);
+    color: white;
+    transform: translateY(-160%);
+  }
+  .skip-link:focus {
+    transform: none;
+    outline-color: #fff;
+  }
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding-block: 28px;
+    border-bottom: 1px solid #c5cfc3;
+    flex-wrap: wrap;
+  }
+  .site-header nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  .site-header nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  .site-header nav a:hover {
+    text-decoration: underline;
+  }
+  .menu-toggle {
+    background: transparent;
+    border: 1px solid var(--color-ink);
+    padding: 10px 14px;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  @media (max-width: 63.99rem) {
+    .site-header nav {
+      gap: 18px;
+    }
+  }
+  @media (max-width: 47.99rem) {
+    .site-header {
+      position: relative;
+      z-index: 30;
+      gap: 16px;
+      padding-block: 20px;
+    }
+    .site-header nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      align-items: stretch;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid #84988b;
+      padding: 12px 20px;
+      background: var(--color-paper);
+      border-bottom: 1px solid #84988b;
+      box-shadow: 0 12px 20px #173d3214;
+    }
+    .site-header nav a {
+      padding-block: 10px;
+    }
+    .menu-toggle {
+      margin-left: auto;
+    }
+  }
+  @media (max-width: 359px) {
+    .menu-toggle {
+      padding: 8px;
+      font-size: 14px;
+    }
+  }
+</style>

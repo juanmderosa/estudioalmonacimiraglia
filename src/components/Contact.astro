@@ -1,0 +1,67 @@
+---
+import Arrow from "./Arrow.astro";
+import ContactForm from "./ContactForm.astro";
+import { business } from '../data/business';
+---
+
+<section
+  class="contact shell section-space grid gap-12 md:grid-cols-2 md:gap-20"
+  id="contacto"
+  aria-labelledby="contact-title">
+  <div>
+    <p class="eyebrow">Contacto</p><h2 id="contact-title">
+      El primer paso<br />es conversar.
+    </h2><p>
+      Estamos para escucharte.<br />Contanos en qué podemos ayudarte.
+    </p><div class="contact-details">
+      <p class="eyebrow">Teléfonos</p>
+      {business.phones.map(phone => <a href={`tel:${phone.international}`}>{phone.display}</a>)}<p
+        class="eyebrow social-label">
+        También en Instagram
+      </p><a
+        class="instagram"
+        href={business.instagram}
+        >@abogadagiselamiraglia <Arrow /></a
+      >
+    </div>
+  </div>
+  <ContactForm />
+</section>
+
+<style>
+.contact h2 {
+  font-size: clamp(40px, 5vw, 60px);
+  margin-bottom: 25px;
+}
+.contact-details {
+  margin-top: 40px;
+}
+.contact-details .eyebrow {
+  margin-bottom: 8px;
+}
+.contact-details > a {
+  display: block;
+  width: fit-content;
+  min-height: 44px;
+  font: 28px/1.6 var(--font-serif);
+}
+.contact-details .social-label {
+  margin-top: 30px;
+}
+.contact-details > a.instagram {
+  font: 16px/1.5 var(--font-sans);
+  padding-block: 10px;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 47.99rem) {
+.contact-details > a {
+    font-size: 25px;
+  }
+.contact-details {
+    margin-top: 28px;
+  }
+.contact h2 {
+    font-size: 44px;
+  }
+}
+</style>
