@@ -1,9 +1,9 @@
 export const business = {
-  name: "Almonaci & Miraglia",
+  name: "Gisela C. M. Miraglia & Asociados",
   category: "Estudio jurídico",
-  title: "Almonaci & Miraglia | Estudio jurídico",
+  title: "Gisela C. M. Miraglia & Asociados",
   description:
-    "Defensa comprometida y atención cercana. Asesoramiento en Derecho Penal, Familia, Civil y Comercial y Laboral. Consultá a Almonaci & Miraglia.",
+    "Gisela C. M. Miraglia & Asociados. Defensa comprometida y atención cercana en Derecho Penal, Familia, Civil y Comercial y Laboral. Consultanos.",
   locale: "es_AR",
   language: "es-AR",
   instagram: "https://www.instagram.com/abogadagiselamiraglia/",

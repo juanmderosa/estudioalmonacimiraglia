@@ -27,7 +27,7 @@ const svg =
   <rect y="590" width="1200" height="40" fill="#007858"/>
   <path d="M850 540V250a140 140 0 0 1 280 0v290Z" fill="#d99480"/>
   <text x="70" y="145" font-family="Arial,sans-serif" font-size="22" fill="#173d32" letter-spacing="4">ESTUDIO JURÍDICO</text>
-  <text x="70" y="240" font-family="Georgia,serif" font-size="55" fill="#173d32">${business.name.replaceAll("&", "&amp;").replaceAll("<", "&lt;")}</text>
+  <text x="70" y="240" font-family="Georgia,serif" font-size="43" fill="#173d32">${business.name.replaceAll("&", "&amp;").replaceAll("<", "&lt;")}</text>
   <text x="70" y="325" font-family="Georgia,serif" font-size="42" fill="#007858">Tus derechos, nuestra prioridad.</text>
   <text x="70" y="425" font-family="Arial,sans-serif" font-size="24" fill="#173d32">Penal · Familia · Civil y Comercial · Laboral</text>
   <text x="70" y="482" font-family="Arial,sans-serif" font-size="23" fill="#173d32">Defensa comprometida. Atención cercana.</text>

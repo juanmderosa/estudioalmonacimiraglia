@@ -1,4 +1,4 @@
-# Almonaci & Miraglia
+# Gisela C. M. Miraglia & Asociados
 
 Landing estática con Astro 7, Tailwind 4 y TypeScript. Diseño editorial cálido, logo original optimizado y formulario hacia WhatsApp. No almacena consultas ni requiere backend. Los textos institucionales son provisionales.
 
